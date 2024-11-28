@@ -1,4 +1,4 @@
-// dotenv plugin
+// nexushelper plugin
 plugins {
     kotlin("jvm") version libs.versions.kotlin
 
@@ -8,7 +8,7 @@ plugins {
 assert(JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17))
 
 group = "com.sinch.gradle"
-version = "0.1.0"
+version = "0.1.1"
 
 repositories {
     mavenCentral()

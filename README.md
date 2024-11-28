@@ -17,3 +17,9 @@ NEXUS_DEPENDENCY_REPO
 ```
 
 The actual URLs used for configuration will be `https://$NEXUS_DOMAIN/repository/$repo`
+
+### Misc
+
+As of `0.1.1`, `NEXUSHELPER_ADDITIONAL_REPOS` can be provided with a comma-separated list of URLs of Gradle dependency
+repos to automatically include via `dependencyResolutionManagement` method. The default value is
+"https://repo.spring.io/milestone" string.

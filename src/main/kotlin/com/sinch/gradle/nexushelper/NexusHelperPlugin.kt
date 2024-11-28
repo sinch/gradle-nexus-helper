@@ -72,10 +72,23 @@ class NexusHelperPlugin : Plugin<Settings> {
     override fun apply(settings: Settings) {
         settings.dependencyResolutionManagement { drm ->
             @Suppress("UnstableApiUsage")
-            drm.repositories {
-                it.mavenCentral()
+            drm.repositories { repositoryHandler ->
+                repositoryHandler.mavenCentral()
 
-                it.maven(settings.nexusMavenRepositoryAction(settings.reqProp("NEXUS_DEPENDENCY_REPO")))
+                repositoryHandler.maven(settings.nexusMavenRepositoryAction(settings.reqProp("NEXUS_DEPENDENCY_REPO")))
+
+                settings.extensions.extraProperties.properties
+                    .getOrDefault(
+                        "NEXUSHELPER_ADDITIONAL_REPOS",
+                        "https://repo.spring.io/milestone",
+                    ).toString()
+                    .split(",")
+                    .filterNot { it.isBlank() }
+                    .forEach { repo ->
+                        repositoryHandler.maven {
+                            it.url = URI(repo)
+                        }
+                    }
             }
         }
     }
